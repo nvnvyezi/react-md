@@ -1,10 +1,13 @@
 import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
+import hljs from 'highlight.js/lib/highlight'
+import javascript from 'highlight.js/lib/languages/javascript'
 
+hljs.registerLanguage('javascript', javascript)
 interface IMarkedOptions {
   [item: string]: any
 }
+
+const renderer = new marked.Renderer()
 
 const markedOptions: IMarkedOptions = {
   // 任何相对链接的前缀URL。
@@ -27,7 +30,7 @@ const markedOptions: IMarkedOptions = {
   // 如果为真，则尽可能符合原始markdown.pl。不要修复原始的降价错误或行为。关闭并覆盖gfm。
   pedantic: false,
   // 包含将标记呈现为HTML的函数的对象。有关详细信息，请参阅扩展性。
-  renderer: new marked.Renderer(),
+  renderer,
   // 如果为true，则使用sanitizer函数对传递到markdownstring的HTML进行清理。
   sanitize: false,
   sanitizer: undefined,
